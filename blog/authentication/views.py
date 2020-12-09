@@ -6,8 +6,10 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
 
 from blog.authentication.models import CustomUser
+from blog.authentication.permissions import IsSameUserOrReadOnly
 from blog.authentication.serializers import (
     UserSerializer,
+    RegisterUserSerializer,
     AuthSerializer,
 )
 
@@ -19,7 +21,7 @@ def set_csrf_token(request):
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsSameUserOrReadOnly, permissions.IsAuthenticatedOrReadOnly]
     queryset = CustomUser.objects.all()
 
     def create(self, *args, **kwargs):
@@ -30,7 +32,7 @@ class UserView(viewsets.ModelViewSet):
 
 
 class RegisterUserView(generics.CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = RegisterUserSerializer
     permission_classes = [permissions.AllowAny]
 
 
