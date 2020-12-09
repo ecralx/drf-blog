@@ -9,5 +9,5 @@ urlpatterns = [
     path("register/", views.RegisterUserView.as_view()),
     path("login/", views.login_view),
     path("logout/", views.logout_view),
-    path("set-csrf/", views.set_csrf_token),
+    path("set_csrf/", views.set_csrf_token),
 ]
