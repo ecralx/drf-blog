@@ -1,13 +1,13 @@
 from rest_framework import viewsets, permissions
-from blog.post.models import Post
-from blog.post.serializers import PostSerializer
+from blog.comment.models import Comment
+from blog.comment.serializers import CommentSerializer
 from blog.utils.permissions import IsOwnerOrReadOnly
 
 
-class PostView(viewsets.ModelViewSet):
-    serializer_class = PostSerializer
+class CommentView(viewsets.ModelViewSet):
+    serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-    queryset = Post.objects.all()
+    queryset = Comment.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

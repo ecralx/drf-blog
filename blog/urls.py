@@ -18,10 +18,12 @@ from django.urls import path, include
 from rest_framework import routers
 from blog.authentication import views as authentication_views
 from blog.post import views as post_views
+from blog.comment import views as comment_views
 
 router = routers.DefaultRouter()
 router.register("users", authentication_views.UserView)
 router.register("posts", post_views.PostView)
+router.register("comments", comment_views.CommentView)
 
 urlpatterns = [
     path("", include(router.urls)),
